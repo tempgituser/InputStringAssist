@@ -30,3 +30,14 @@
 
 # Debug files
 *.dSYM/
+
+
+*.ini
+*.idb
+*.pdb
+/Debug/
+/Release/
+build.bat
+test.bat
+InputStringAssist.vcxproj
+InputStringAssist.vcxproj.filters
