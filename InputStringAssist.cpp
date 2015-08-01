@@ -137,6 +137,7 @@ int main(int argc, char* argv[])
 	/*for (int i = 0; i < argc; i++){
 		printf("%s\n", argv[i]);
 	}*/
+	printf("Please input keyword:\n");
 
 	FILE* settingFile;
 	char* inputFile = "InputAssistSettings.ini";
@@ -164,7 +165,13 @@ int main(int argc, char* argv[])
 
 	char* input = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 	memset(input, '\0', sizeof(char)*MAX_LINE_SIZE);
-	scanf_s("%s", input, MAX_LINE_SIZE);
+	if (argc < 2){
+		scanf_s("%s", input, MAX_LINE_SIZE);
+	}
+	else{
+		input = argv[1];
+	}
+	
 
 	char line[MAX_LINE_SIZE] = { '\0' };
 	int currentIndex = 0;
@@ -184,7 +191,7 @@ int main(int argc, char* argv[])
 		char* key = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 		memset(key, '\0', sizeof(char)*MAX_LINE_SIZE);
 		left(key, line, sepCharPos);
-
+		if (strcmp(key, "input") == 0){ continue; }
 		if (strcmp(input, key) == 0){
 			char* value = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 			memset(value, '\0', sizeof(char)*MAX_LINE_SIZE);
@@ -193,7 +200,7 @@ int main(int argc, char* argv[])
 			int valueLength = strlen(value);
 			if (valueLength < 1){ continue; }
 
-			Sleep(2000);
+			Sleep(1200);
 			for (int i = 0; i < valueLength; i++){
 				//printf("%c", value[i]);
 				press(value[i]);
