@@ -191,7 +191,7 @@ int main(int argc, char* argv[])
 		char* key = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 		memset(key, '\0', sizeof(char)*MAX_LINE_SIZE);
 		left(key, line, sepCharPos);
-		if (strcmp(key, "input") == 0){ continue; }
+		//if (strcmp(key, "input") == 0){ continue; }
 		if (strcmp(input, key) == 0){
 			char* value = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 			memset(value, '\0', sizeof(char)*MAX_LINE_SIZE);
