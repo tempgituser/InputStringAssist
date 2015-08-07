@@ -175,6 +175,7 @@ int main(int argc, char* argv[])
 
 	char line[MAX_LINE_SIZE] = { '\0' };
 	int currentIndex = 0;
+	char* key = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 	while (!feof(settingFile)){
 		fgets(line, MAX_LINE_SIZE, settingFile);
 		currentIndex++;
@@ -187,9 +188,8 @@ int main(int argc, char* argv[])
 			continue;
 		}
 
-
-		char* key = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 		memset(key, '\0', sizeof(char)*MAX_LINE_SIZE);
+
 		left(key, line, sepCharPos);
 		//if (strcmp(key, "input") == 0){ continue; }
 		if (strcmp(input, key) == 0){
@@ -205,13 +205,14 @@ int main(int argc, char* argv[])
 				//printf("%c", value[i]);
 				press(value[i]);
 			}
-
+			free(value);
 
 		}
-
-
+		
 
 	}
+	free(key);
+	free(input);
 
 
 	fclose(settingFile);
