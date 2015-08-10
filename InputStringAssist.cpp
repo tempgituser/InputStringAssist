@@ -176,8 +176,11 @@ int main(int argc, char* argv[])
 	char line[MAX_LINE_SIZE] = { '\0' };
 	int currentIndex = 0;
 	char* key = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
-	while (!feof(settingFile)){
+	while (1){
 		fgets(line, MAX_LINE_SIZE, settingFile);
+		if (feof(settingFile)){
+			break;
+		}
 		currentIndex++;
 		unsigned int length = strlen(line);
 		if (length < strlen("1==1")){
