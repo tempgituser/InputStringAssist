@@ -32,18 +32,34 @@ int getSepCharIndex(char line[], int length){
 
 void event(int key, bool needShift = false){
 	if (needShift){
-		keybd_event(VK_LSHIFT, 0, 0, 0);
+		keybd_event(VK_SHIFT, 0, 0, 0);
 		Sleep(SLEEP_DELAY);
 	}
 	keybd_event(key, 0, 0, 0);
 	Sleep(SLEEP_DELAY);
-	if (needShift){
-		keybd_event(VK_LSHIFT, 0, KEYEVENTF_KEYUP, 0);
-		Sleep(SLEEP_DELAY);
-	}
 	keybd_event(key, 0, KEYEVENTF_KEYUP, 0);
 	Sleep(SLEEP_DELAY);
+	if (needShift){
+		keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
+		Sleep(SLEEP_DELAY);
+	}
 }
+
+//TODO:failed.why?
+void eventAlter(int key){
+	keybd_event(VK_MENU, 0, 0, 0);
+	Sleep(SLEEP_DELAY);
+
+	keybd_event(key, 0, 0, 0);
+	Sleep(SLEEP_DELAY);
+	
+	keybd_event(key, 0, KEYEVENTF_KEYUP, 0);
+	Sleep(SLEEP_DELAY);
+	
+	keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP, 0);
+	Sleep(SLEEP_DELAY);
+}
+
 void press(char a){
 	if (('a' <= a) && (a <= 'z'))
 	{
@@ -177,8 +193,9 @@ int main(int argc, char* argv[])
 	int currentIndex = 0;
 	char* key = (char*)malloc(sizeof(char)*MAX_LINE_SIZE);
 	while (1){
+		strcpy(line, "");
 		fgets(line, MAX_LINE_SIZE, settingFile);
-		if (feof(settingFile)){
+		if (feof(settingFile) && strlen(line) < 1){
 			break;
 		}
 		currentIndex++;
@@ -204,6 +221,7 @@ int main(int argc, char* argv[])
 			if (valueLength < 1){ continue; }
 
 			Sleep(1200);
+
 			for (int i = 0; i < valueLength; i++){
 				//printf("%c", value[i]);
 				press(value[i]);
